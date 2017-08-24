@@ -1,0 +1,17 @@
+{
+  "name": "correios",
+  "version": "1.0.0",
+  "description": "Exemplo de uso da biblioteca correios-lib",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jhony Alceu Pereira <jhonystein@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "correios-lib": "git+https://github.com/jhonystein/correios-lib.git",
+    "express": "^4.15.4"
+  }
+}
