@@ -9,7 +9,11 @@ app.use(bodyParser.json())
 app.get('/cep/:codigo', function(req, resp) {
   correios.cep(req.params.codigo)
     .then(function(data) {
-      resp.json(data)
+      if (data.cep) {
+        resp.json(data)
+      } else {
+        resp.sendStatus(404)
+      }
     }, function(error) {
       resp.status(500).json(error)
     })
@@ -18,7 +22,11 @@ app.get('/cep/:codigo', function(req, resp) {
 app.get('/rastreio/:codigo', function(req, resp) {
   correios.rastreio(req.params.codigo)
     .then(function(data) {
-      resp.json(data)
+      if (data.length) {
+        resp.json(data)
+      } else {
+        resp.sendStatus(404)
+      }
     }, function(error) {
       resp.status(500).json(error)
     })
@@ -29,7 +37,7 @@ app.post('/frete', function(req, resp) {
     .then(function(data){
       resp.json(data)
     }, function(error) {
-      resp.status(500).json(error)
+      resp.status(400).json(error)
     })
 })
 
