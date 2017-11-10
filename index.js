@@ -2,9 +2,13 @@ const http = require('http')
 const app = require('express')()
 const bodyParser = require('body-parser')
 
+const marked = require('marked')
+const fs = require('fs')
+
 const correios = require('correios-lib')
 
 app.use(bodyParser.json())
+app.use(require('express-status-monitor')())
 
 app.get('/cep/:codigo', function(req, resp) {
   correios.cep(req.params.codigo)
@@ -39,6 +43,16 @@ app.post('/frete', function(req, resp) {
     }, function(error) {
       resp.status(400).json(error)
     })
+})
+
+app.get('/', function(req, resp) {
+  fs.readFile('./README.md', 'utf8', function(err, data) {
+    if (err) {
+      resp.status(500).send(err)
+    } else {
+      resp.send(marked(data))
+    }
+  })
 })
 
 http.createServer(app)

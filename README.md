@@ -2,7 +2,7 @@
 
 Exemplo de uso da biblioteca [correios-lib](https://github.com/jhonystein/correios-lib)
 
-## Passos para execução
+## Passos para executar uma cópia do micro serviço
 
 ``` bash
 git clone https://github.com/jhonystein/correios.git
