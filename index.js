@@ -1,5 +1,6 @@
 const http = require('http')
-const app = require('express')()
+const express = require('express')
+const app = express()
 const bodyParser = require('body-parser')
 
 const marked = require('marked')
@@ -9,6 +10,7 @@ const correios = require('correios-lib')
 
 app.use(bodyParser.json())
 app.use(require('express-status-monitor')())
+app.use(express.static('./public'))
 
 app.get('/cep/:codigo', function(req, resp) {
   correios.cep(req.params.codigo)
@@ -56,6 +58,6 @@ app.get('/', function(req, resp) {
 })
 
 http.createServer(app)
-  .listen(80, function(){
-    console.log('Servidor iniciado na porta 80')
+  .listen(process.env.PORT || 8080, function(){
+    console.log('Servidor iniciado na porta', process.env.PORT || 8080)
   })
