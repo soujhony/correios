@@ -56,6 +56,6 @@ app.get('/', function(req, resp) {
 })
 
 http.createServer(app)
-  .listen(8080, function(){
-    console.log('Servidor iniciado na porta 8080')
+  .listen(80, function(){
+    console.log('Servidor iniciado na porta 80')
   })
