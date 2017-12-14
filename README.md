@@ -14,7 +14,7 @@ npm start
 ## Documentação
 
 Serviço já em execução em:
-[http://api.correios.gq](http://api.correios.gq)
+[http://apicorreios.herokuapp.com](http://apicorreios.herokuapp.com)
 
 Serviços:
 - Consulta de CEP
