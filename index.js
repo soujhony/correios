@@ -8,6 +8,11 @@ const fs = require('fs')
 
 const correios = require('correios-lib')
 
+const config = {
+  port: process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+  ip: process.env.IP || process.env.HOST || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0'
+}
+
 app.use(bodyParser.json())
 app.use(require('express-status-monitor')())
 app.use(express.static('./public'))
@@ -58,6 +63,6 @@ app.get('/', function(req, resp) {
 })
 
 http.createServer(app)
-  .listen(process.env.OPENSHIFT_NODEJS_PORT || 8080, process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1', function(){
-    console.log('Servidor iniciado na porta', process.env.PORT || 8080)
+  .listen(config.port, config.ip, function(){
+    console.log('Servidor iniciado na porta', config.port)
   })
