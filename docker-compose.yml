@@ -1,0 +1,10 @@
+version: '3'
+services:
+  node:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    image: jhonystein/correios
+    container_name: correios
+    ports:
+      - "80:8080"
