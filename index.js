@@ -32,7 +32,8 @@ const swaggerSpec = swaggerJSDoc({
         url: 'https://raw.githubusercontent.com/jhonystein/correios/master/LICENSE'
       }
     },
-  basePath: '/api',
+    authAction: false,
+    basePath: '/api',
   },
   apis: ['./index.js']
 })
