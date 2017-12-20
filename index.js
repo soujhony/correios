@@ -23,7 +23,7 @@ const swaggerSpec = swaggerJSDoc({
       version: '1.0.0',
       description: 'Catalogo dos métodos',
     },
-  basePath: '/',
+  basePath: '/api',
   },
   apis: ['./index.js']
 })
@@ -42,7 +42,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 /**
  * @swagger
- * /api/cep:
+ * /cep/{codigo}:
  *   get:
  *     description: Consulta um determinado CEP
  *     produces:
