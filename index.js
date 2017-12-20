@@ -3,8 +3,8 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 
-const marked = require('marked')
-const fs = require('fs')
+const swaggerJSDoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
 
 const correios = require('correios-lib')
 
@@ -15,9 +15,51 @@ const config = {
 
 app.use(bodyParser.json())
 app.use(require('express-status-monitor')())
-app.use(express.static('./public'))
 
-app.get('/cep/:codigo', function(req, resp) {
+const swaggerSpec = swaggerJSDoc({
+  swaggerDefinition: {
+    info: {
+      title: 'Documentação da API de Microserviços dos Correios',
+      version: '1.0.0',
+      description: 'Catalogo dos métodos',
+    },
+  basePath: '/',
+  },
+  apis: ['./index.js']
+})
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  next();
+});
+
+app.get('/swagger.json', function(req, res) {
+  res.setHeader('Content-Type', 'application/json')
+  res.send(swaggerSpec)
+})
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+
+/**
+ * @swagger
+ * /api/cep:
+ *   get:
+ *     description: Consulta um determinado CEP
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: codigo
+ *         description: Código do CEP a ser consultado
+ *         in: path
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Dados do CEP consultado
+ *       404:
+ *         description: CEP consultado não encontrado
+ */
+app.get('/api/cep/:codigo', function(req, resp) {
   correios.cep(req.params.codigo)
     .then(function(data) {
       if (data.cep) {
@@ -30,7 +72,7 @@ app.get('/cep/:codigo', function(req, resp) {
     })
 })
 
-app.get('/rastreio/:codigo', function(req, resp) {
+app.get('/api/rastreio/:codigo', function(req, resp) {
   correios.rastreio(req.params.codigo)
     .then(function(data) {
       if (data.length) {
@@ -43,7 +85,7 @@ app.get('/rastreio/:codigo', function(req, resp) {
     })
 })
 
-app.post('/frete', function(req, resp) {
+app.post('/api/frete', function(req, resp) {
   correios.frete(req.body)
     .then(function(data){
       resp.json(data)
@@ -52,17 +94,7 @@ app.post('/frete', function(req, resp) {
     })
 })
 
-app.get('/', function(req, resp) {
-  fs.readFile('./README.md', 'utf8', function(err, data) {
-    if (err) {
-      resp.status(500).send(err)
-    } else {
-      resp.send(marked(data))
-    }
-  })
-})
-
 http.createServer(app)
   .listen(config.port, config.ip, function(){
-    console.log('Servidor iniciado na porta', config.port)
+    console.log('Microserviço dos correios iniciado na porta', config.port)
   })

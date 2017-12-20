@@ -19,17 +19,17 @@ Serviço já em execução em:
 Serviços:
 - Consulta de CEP
 ```
-GET /cep/{cep de consulta}
+GET /api/cep/{cep de consulta}
 ```
 
 - Consulta de rastreio
 ```
-GET /rastreio/{código de rastreio}
+GET /api/rastreio/{código de rastreio}
 ```
 
 - Orçamento de frete
 ```
-POST /frete
+POST /api/frete
 ```
 - Formato do objeto para geração do orçamento de frete
 ``` json
