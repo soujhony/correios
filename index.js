@@ -7,6 +7,7 @@ const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
 
 const correios = require('correios-lib')
+const ibge = require('municipios-ibge')
 
 const config = {
   port: process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
@@ -73,6 +74,7 @@ app.get('/api/cep/:codigo', function(req, resp) {
   correios.cep(req.params.codigo)
     .then(function(data) {
       if (data.cep) {
+        data.codigoIbge = ibge(data.uf, data.cidade)
         resp.json(data)
       } else {
         resp.sendStatus(404)
