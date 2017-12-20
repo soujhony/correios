@@ -19,9 +19,18 @@ app.use(require('express-status-monitor')())
 const swaggerSpec = swaggerJSDoc({
   swaggerDefinition: {
     info: {
-      title: 'Documentação da API de Microserviços dos Correios',
+      title: 'API de Microserviços dos Correios',
       version: '1.0.0',
-      description: 'Catalogo dos métodos',
+      description: 'Catálogo dos métodos presentes na API de microserviços dos correios',
+      contact: {
+        name: 'Jhony Alceu Pereira',
+        url: 'https://jhonystein.github.io',
+        email: 'jhonystein@gmail.com'
+      },
+      license: {
+        name: 'MIT',
+        url: 'https://raw.githubusercontent.com/jhonystein/correios/master/LICENSE'
+      }
     },
   basePath: '/api',
   },
