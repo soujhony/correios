@@ -177,7 +177,7 @@ app.get('/api/rastreio/:codigo', function(req, resp) {
  *           $ref: '#/definitions/DadosFrete'
  *     responses:
  *       200:
- *         description: Dados do CEP consultado
+ *         description: Dados do frete consultado
  *       400:
  *         description: Dados inválidos para a consulta de frete
  */
