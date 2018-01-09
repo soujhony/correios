@@ -35,7 +35,7 @@ const swaggerSpec = swaggerJSDoc({
     },
     authAction: false,
     basePath: '/api',
-    host: '',
+    host: 'apicorreios.herokuapp.com',
     externalDocs: {
       description: 'Status do Serviço',
       url: 'http://apicorreios.herokuapp.com/status'
