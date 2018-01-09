@@ -53,6 +53,50 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 /**
  * @swagger
+ * definitions:
+ *   DadosFrete:
+ *     type: object
+ *     required:
+ *       - servico
+ *       - cepOrigem
+ *       - cepDestino
+ *       - peso
+ *       - altura
+ *       - largura
+ *       - comprimento
+ *       - diametro
+ *       - formato
+ *     properties:
+ *       servico:
+ *         type: array
+ *         items: 
+ *           type: string
+ *       cepOrigem:
+ *         type: string
+ *       cepDestino:
+ *         type: string
+ *       peso:
+ *         type: float
+ *       altura:
+ *         type: float
+ *       largura:
+ *         type: float
+ *       comprimento:
+ *         type: float
+ *       diametro:
+ *         type: float
+ *       formato:
+ *         type: string
+ *       maoPropria:
+ *         type: string
+ *       avisoRecebimento:
+ *         type: string
+ *       valor:
+ *         type: float
+ */
+
+/**
+ * @swagger
  * /cep/{codigo}:
  *   get:
  *     description: Consulta um determinado CEP
@@ -84,6 +128,25 @@ app.get('/api/cep/:codigo', function(req, resp) {
     })
 })
 
+/**
+ * @swagger
+ * /rastreio/{codigo}:
+ *   get:
+ *     description: Consulta um código de Rastreio
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: codigo
+ *         description: Código do Rastreio a ser consultado
+ *         in: path
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Conjunto dos dados do rastreio
+ *       404:
+ *         description: Código de Rastreio não encontrado
+ */
 app.get('/api/rastreio/:codigo', function(req, resp) {
   correios.rastreio(req.params.codigo)
     .then(function(data) {
@@ -97,6 +160,27 @@ app.get('/api/rastreio/:codigo', function(req, resp) {
     })
 })
 
+/**
+ * @swagger
+ * /frete:
+ *   post:
+ *     description: Realiza uma consulta de valores de frete com suas características
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: dados
+ *         description: Dados do Frete
+ *         in:  body
+ *         required: true
+ *         type: string
+ *         schema:
+ *           $ref: '#/definitions/DadosFrete'
+ *     responses:
+ *       200:
+ *         description: Dados do CEP consultado
+ *       400:
+ *         description: Dados inválidos para a consulta de frete
+ */
 app.post('/api/frete', function(req, resp) {
   correios.frete(req.body)
     .then(function(data){
@@ -106,7 +190,11 @@ app.post('/api/frete', function(req, resp) {
     })
 })
 
+app.get('/', function(req, resp) {
+  resp.redirect('/api-docs')
+})
+
 http.createServer(app)
   .listen(config.port, config.ip, function(){
-    console.log('Microserviço dos correios iniciado na porta', config.port)
+    console.log('Micro serviço dos correios iniciado na porta', config.port)
   })
