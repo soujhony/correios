@@ -1,4 +1,6 @@
 # correios
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjhonystein%2Fcorreios.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjhonystein%2Fcorreios?ref=badge_shield)
+
 
 Exemplo de uso da biblioteca [correios-lib](https://github.com/jhonystein/correios-lib)
 
@@ -69,3 +71,7 @@ Código do formato de empacotamento da mercadoria:
 |1 | Caixa |
 |2 | Rolo |
 |3 | Envelope |
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjhonystein%2Fcorreios.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjhonystein%2Fcorreios?ref=badge_large)
